@@ -1,98 +1,113 @@
-# 📊 Proyecto Capstone: Predicción del Número de Estudiantes en el Sistema Educativo Ecuatoriano
+# Modelos de Aprendizaje Supervisado para la Predicción de Matrículas Estudiantiles en Ecuador
 
-Este proyecto consiste en el desarrollo de un modelo de **aprendizaje supervisado** para predecir el número de estudiantes matriculados en el sistema educativo ecuatoriano durante los próximos cuatro años.
+## 📌 Resumen
+
+Este proyecto tiene como objetivo desarrollar e implementar modelos de aprendizaje supervisado que permitan estimar con alta precisión el número total de estudiantes matriculados en el sistema educativo ecuatoriano, utilizando datos históricos oficiales.  
+
+El flujo de trabajo incluye:
+
+- Limpieza y preprocesamiento de datos.
+- Análisis exploratorio de datos (EDA).
+- Ingeniería de características, incluyendo variables rezagadas.
+- Entrenamiento, evaluación y comparación de modelos de regresión supervisada.
+- Predicción de matrículas a futuro (2025–2028) a nivel provincial.
+
+Se utilizan métricas como RMSE y Error Relativo para evaluar el rendimiento predictivo de los modelos. El enfoque busca generar información útil para la planificación y toma de decisiones en el sector educativo.
+
+El desarrollo se realiza en Python, empleando bibliotecas de ciencia de datos, aprendizaje automático y visualización como `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `XGBoost` y `TensorFlow`.
 
 ---
 
-## 👥 Autores
+## ⚙️ Requisitos
 
-- **José Antonio Cobeña Cedeño**  
-- **Kelly Monserrate España Andrade**
+Este notebook está diseñado para ejecutarse en **Google Colab**. Para ello, se requiere:
 
-**Universidad de las Américas**  
-**Maestría en Inteligencia de Negocios y Ciencia de Datos**
+- Montar Google Drive para acceder al conjunto de datos.
+- Asegurarse de tener acceso al archivo CSV `registro-administrativo-historico_2009-2024-inicio.csv`
+
+### 📦 Bibliotecas utilizadas
+
+Las siguientes bibliotecas deben estar disponibles (usualmente preinstaladas en Colab):
+
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+- `scikit-learn`
+- `xgboost`
+- `tensorflow`
+- `ipywidgets`
+- `statsmodels`
+- `IPython`
+- `pylab`
 
 ---
 
-## 🧠 Objetivo
+## 🚀 Uso
 
-Construir un modelo de predicción basado en datos históricos de matrículas escolares con el fin de asistir en la **planificación educativa**, **distribución de recursos** y **toma de decisiones estratégicas** por parte de las autoridades del sector.
+### Ejecución
 
-## 🛠️ Tecnologías Utilizadas
+1. Abre el notebook en Google Colab.
+2. Monta tu Google Drive para acceder al conjunto de datos.
+3. Ejecuta las celdas secuencialmente.
 
-- Python 3.10+
-- Pandas
-- NumPy
-- Scikit-learn
-- Matplotlib / Seaborn
-- Jupyter Notebook
+### Proceso general del notebook:
 
+1. **Carga y limpieza de datos.**
+2. **Análisis exploratorio (EDA)** con visualizaciones para identificar patrones por provincia, régimen, sostenimiento y tipo de educación.
+3. **Preparación de datos para modelado**, incluyendo variables de rezago (lags) y segmentación por provincia.
+4. **Entrenamiento y evaluación de modelos supervisados**, incluyendo:
+   - XGBoost Regressor
+   - Random Forest Regressor
+   - Decision Tree Regressor
+   - Red Neuronal (Perceptrón Multicapa con TensorFlow)
+5. **Comparación de métricas por provincia** usando RMSE y Error Relativo.
+6. **Visualización de resultados reales vs. predichos** para provincias seleccionadas.
+7. **Generación de predicciones para 2025–2028** usando el modelo con mejor rendimiento (XGBoost).
+8. **Exportación de predicciones a `predicciones.csv`.**
+9. **Visualización interactiva** con `ipywidgets` para consultar predicciones por provincia y año.
 
-## 📊 Metodología
+---
 
-1. **Recolección de datos**: Se utilizaron registros históricos del Ministerio de Educación del Ecuador.
-2. **Limpieza y preprocesamiento**: 
-   - Eliminación de valores nulos.
-   - Conversión de tipos de datos.
-   - Ingeniería de variables temporales.
-3. **Modelado**: 
-   - División de datos en entrenamiento y prueba.
-   - Entrenamiento de modelos de regresión (XGBoost).
-   - Evaluación con métricas como MAE, RMSE y R².
-4. **Predicción**:
-   - Proyección de la cantidad de estudiantes para los próximos 4 años.
+## 🧾 Conjunto de Datos
 
-## Contenido del notebook
-El notebook sigue los siguientes pasos:
+Se utiliza el archivo:  
+`registro-administrativo-historico_2009-2024-inicio.csv`  
 
-1.  **Importación de Librerías**: Carga de todas las bibliotecas necesarias (pandas, numpy, matplotlib, seaborn, statsmodels, ipywidgets, sklearn, xgboost).
-2.  **Carga de Datos**: Montaje de Google Drive para cargar el archivo CSV `registro-administrativo-historico_2009-2024-inicio.csv`.
-3.  **Limpieza y Preprocesamiento de Datos**:
-    *   Manejo de valores nulos en la columna 'Anio_lectivo'.
-    *   Extracción del año de inicio y conversión a tipo entero.
-    *   Conversión de columnas numéricas de float a int donde sea posible.
-    *   Estandarización de columnas de texto (eliminar espacios, convertir a minúsculas, normalizar caracteres).
-    *   Codificación One-Hot (dummies) para variables categóricas.
-4.  **Selección de Columnas y Preparación para Modelado**: Creación de un DataFrame con las columnas relevantes para el análisis y modelado.
-5.  **Análisis Exploratorio de Datos (EDA)**:
-    *   Configuración del índice a la columna 'Anio' (tipo datetime).
-    *   Visualización de las tendencias anuales de 'Total_Docentes' y 'Total_Estudiantes'.
-    *   Cálculo y visualización de la matriz de correlación entre 'Total_Docentes' y 'Total_Estudiantes'.
-    *   Visualización del total de estudiantes por diferentes variables categóricas.
-6.  **Agregación y Creación de Features**:
-    *   Agrupación de datos por provincia y año para sumar totales y calcular promedios de variables codificadas.
-    *   Creación de variables de retraso (lags) para 'Total_Estudiantes' (hasta 3 años atrás).
-    *   Eliminación de filas con valores nulos resultantes de los lags.
-7.  **División de Datos**: Separación del conjunto de datos en entrenamiento (hasta 2021) y prueba (después de 2021).
-8.  **Entrenamiento y Evaluación del Modelo XGBoost**:
-    *   Inicialización y entrenamiento del modelo `XGBRegressor`.
-    *   Realización de predicciones en el conjunto de prueba.
-    *   Cálculo y presentación de métricas de evaluación (RMSE y R²).
-    *   Visualización y tabla de la importancia de las características en el modelo.
-9.  **Comparación de Resultados**: Gráfica comparativa de los totales reales y predichos de estudiantes a lo largo del tiempo.
-10. **Análisis de Rendimiento por Provincia**: Cálculo y ordenamiento del RMSE del modelo para cada provincia.
-11. **Predicción de Valores Futuros**:
-    *   Implementación de una función para predecir el total de estudiantes por provincia para años futuros, utilizando los lags.
-    *   Generación de predicciones para los próximos 4 años (a partir de 2025).
-    *   Exportación de las predicciones a un archivo CSV (`predicciones_matriculados.csv`).
-    *   Descarga automática del archivo CSV generado.
-12. **Interfaz de Consulta**: Creación de widgets interactivos para ingresar el código de provincia y el año, y mostrar la predicción específica.
+Debe contener las siguientes columnas clave:
 
+- `Anio_lectivo`
+- `Cod_Provincia`
+- `Total_Docentes`
+- `Total_Estudiantes`
+- `Tipo_Educacion`
+- `Sostenimiento`
+- `Area`
+- `Regimen_Escolar`
+- `Jurisdiccion`
 
-## 📈 Resultados Esperados
+Estos datos permiten segmentar las observaciones y generar predicciones específicas por provincia.
 
-- Predicciones anuales del total de estudiantes.
-- Visualizaciones de tendencias educativas.
+---
 
-## ✅ Requisitos
+## 📈 Evaluación de Modelos
 
-- Python >= 3.10
-- Jupyter
-- Paquetes: `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`
+Se emplean las siguientes métricas para evaluar el rendimiento de cada modelo por provincia:
 
-Puedes instalar los requerimientos con:
+- **RMSE (Root Mean Squared Error):** Mide la magnitud promedio de los errores absolutos al cuadrado.
+- **Error Relativo:** Mide el error como un porcentaje relativo al valor real promedio, útil para comparación normalizada.
+- **R² (Coeficiente de Determinación):** Aplica a modelos como XGBoost para evaluar la proporción de varianza explicada por el modelo.
 
-```bash
-pip install -r requirements.txt
+Se imprime una tabla resumen con las métricas por modelo y provincia, ordenadas por Error Relativo para facilitar la selección del modelo más eficiente.
 
+---
 
+## 🔮 Predicciones Futuras
+
+Los modelos entrenados, especialmente XGBoost, se utilizan para generar predicciones de matrícula estudiantil para cada provincia durante los años 2025–2028. Las salidas incluyen:
+
+- **Archivo CSV (`predicciones.csv`)** con los resultados por provincia y año.
+- **Widget interactivo** para consultar predicciones específicas.
+- **Gráficos históricos vs. predicción futura** para visualización comparativa.
+
+---
