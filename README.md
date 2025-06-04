@@ -1,113 +1,130 @@
-# Modelos de Aprendizaje Supervisado para la Predicción de Matrículas Estudiantiles en Ecuador
 
-## 📌 Resumen
+# Modelos de Aprendizaje Supervisado para el Número de Matrículas Estudiantiles en Ecuador
 
-Este proyecto tiene como objetivo desarrollar e implementar modelos de aprendizaje supervisado que permitan estimar con alta precisión el número total de estudiantes matriculados en el sistema educativo ecuatoriano, utilizando datos históricos oficiales.  
+Este proyecto implementa modelos de aprendizaje supervisado para predecir el número total de estudiantes matriculados en Ecuador a nivel provincial, utilizando datos históricos. El objetivo es identificar el modelo con el mejor rendimiento predictivo para apoyar la planificación educativa.
 
-El flujo de trabajo incluye:
+---
 
-- Limpieza y preprocesamiento de datos.
-- Análisis exploratorio de datos (EDA).
-- Ingeniería de características, incluyendo variables rezagadas.
-- Entrenamiento, evaluación y comparación de modelos de regresión supervisada.
-- Predicción de matrículas a futuro (2025–2028) a nivel provincial.
+## 📘 Contenido del Notebook
 
-Se utilizan métricas como RMSE y Error Relativo para evaluar el rendimiento predictivo de los modelos. El enfoque busca generar información útil para la planificación y toma de decisiones en el sector educativo.
+El archivo principal `nombre_del_notebook.ipynb` (reemplaza con el nombre real) sigue los siguientes pasos:
 
-El desarrollo se realiza en Python, empleando bibliotecas de ciencia de datos, aprendizaje automático y visualización como `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `XGBoost` y `TensorFlow`.
+1. **Importación de Librerías**  
+   Carga de bibliotecas para manipulación de datos, visualización, análisis estadístico y modelado predictivo.
+
+2. **Carga de Datos**  
+   Lectura del dataset histórico desde Google Drive (`registro-administrativo-historico_2009-2024-inicio.csv`).
+
+3. **Exploración Inicial de Datos**  
+   Visualización de estructura y tipos de datos para entender el dataset.
+
+4. **Limpieza y Preprocesamiento**  
+   - Conversión de tipos de datos  
+   - Estandarización de texto  
+   - One-Hot Encoding  
+   - Filtrado de registros incompletos  
+   - Selección de variables relevantes
+
+5. **Preparación para Series de Tiempo**  
+   - Conversión de año a índice datetime  
+   - Agregación por año
+
+6. **Análisis Exploratorio de Datos (EDA)**  
+   - Tendencias temporales  
+   - Matriz de correlación  
+   - Análisis por categoría (área, sostenimiento, tipo de educación, etc.)
+
+7. **Agregación Provincial Anual**  
+   Agrupación por provincia y año, sumando totales y promediando variables categóricas.
+
+8. **Ingeniería de Características (Lags)**  
+   Generación de variables de retraso (`lags`) para capturar dependencia temporal.
+
+9. **Validación Rolling Forecasting**  
+   Estrategia de validación temporal simulando escenarios reales de predicción año a año.
+
+10. **Entrenamiento y Evaluación de Modelos**  
+    - Modelos utilizados:
+      - XGBoost Regressor  
+      - Gradient Boosting Regressor  
+      - Random Forest Regressor  
+      - Decision Tree Regressor  
+    - Métricas evaluadas:
+      - RMSE  
+      - Error Relativo Promedio  
+    - Comparación de desempeño por provincia
+
+11. **Predicción de Años Futuros (XGBoost)**  
+    Predicción de matrículas para años futuros usando el mejor modelo entrenado.
+
+12. **Interfaz Interactiva (ipywidgets)**  
+    Widget para consultar predicciones por provincia y año.
+
+13. **Visualización de Resultados**  
+    Gráficos comparativos entre datos históricos y predicciones futuras.
 
 ---
 
 ## ⚙️ Requisitos
 
-Este notebook está diseñado para ejecutarse en **Google Colab**. Para ello, se requiere:
+- Cuenta de Google y acceso a Google Colab  
+- Archivo de datos en Google Drive:  
+  `/content/drive/My Drive/Colab Notebooks/registro-administrativo-historico_2009-2024-inicio.csv`  
+- Librerías de Python necesarias:
 
-- Montar Google Drive para acceder al conjunto de datos.
-- Asegurarse de tener acceso al archivo CSV `registro-administrativo-historico_2009-2024-inicio.csv`
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn statsmodels xgboost ipywidgets
+```
 
-### 📦 Bibliotecas utilizadas
+O usa este `requirements.txt`:
 
-Las siguientes bibliotecas deben estar disponibles (usualmente preinstaladas en Colab):
-
-- `pandas`
-- `numpy`
-- `matplotlib`
-- `seaborn`
-- `scikit-learn`
-- `xgboost`
-- `tensorflow`
-- `ipywidgets`
-- `statsmodels`
-- `IPython`
-- `pylab`
-
----
-
-## 🚀 Uso
-
-### Ejecución
-
-1. Abre el notebook en Google Colab.
-2. Monta tu Google Drive para acceder al conjunto de datos.
-3. Ejecuta las celdas secuencialmente.
-
-### Proceso general del notebook:
-
-1. **Carga y limpieza de datos.**
-2. **Análisis exploratorio (EDA)** con visualizaciones para identificar patrones por provincia, régimen, sostenimiento y tipo de educación.
-3. **Preparación de datos para modelado**, incluyendo variables de rezago (lags) y segmentación por provincia.
-4. **Entrenamiento y evaluación de modelos supervisados**, incluyendo:
-   - XGBoost Regressor
-   - Random Forest Regressor
-   - Decision Tree Regressor
-   - Red Neuronal (Perceptrón Multicapa con TensorFlow)
-5. **Comparación de métricas por provincia** usando RMSE y Error Relativo.
-6. **Visualización de resultados reales vs. predichos** para provincias seleccionadas.
-7. **Generación de predicciones para 2025–2028** usando el modelo con mejor rendimiento (XGBoost).
-8. **Exportación de predicciones a `predicciones.csv`.**
-9. **Visualización interactiva** con `ipywidgets` para consultar predicciones por provincia y año.
+```text
+pandas==2.0.3
+numpy==1.25.2
+matplotlib==3.7.1
+seaborn==0.13.1
+statsmodels==0.14.0
+ipywidgets==7.7.1
+scikit-learn==1.5.0
+xgboost==2.0.0
+ipython==9.3.0
+```
 
 ---
 
-## 🧾 Conjunto de Datos
+## ▶️ Cómo Ejecutar
 
-Se utiliza el archivo:  
-`registro-administrativo-historico_2009-2024-inicio.csv`  
+1. Abre el notebook en Google Colab.  
+2. Monta tu Google Drive:
 
-Debe contener las siguientes columnas clave:
+   ```python
+   from google.colab import drive
+   drive.mount('/content/drive')
+   ```
 
-- `Anio_lectivo`
-- `Cod_Provincia`
-- `Total_Docentes`
-- `Total_Estudiantes`
-- `Tipo_Educacion`
-- `Sostenimiento`
-- `Area`
-- `Regimen_Escolar`
-- `Jurisdiccion`
-
-Estos datos permiten segmentar las observaciones y generar predicciones específicas por provincia.
+3. Asegúrate de que el archivo CSV esté en la ruta especificada o ajústala en el código.  
+4. Ejecuta cada celda del notebook en orden.  
+5. Utiliza el widget interactivo para consultar predicciones por provincia y año.
 
 ---
 
-## 📈 Evaluación de Modelos
+## 📈 Resultados y Conclusiones
 
-Se emplean las siguientes métricas para evaluar el rendimiento de cada modelo por provincia:
-
-- **RMSE (Root Mean Squared Error):** Mide la magnitud promedio de los errores absolutos al cuadrado.
-- **Error Relativo:** Mide el error como un porcentaje relativo al valor real promedio, útil para comparación normalizada.
-- **R² (Coeficiente de Determinación):** Aplica a modelos como XGBoost para evaluar la proporción de varianza explicada por el modelo.
-
-Se imprime una tabla resumen con las métricas por modelo y provincia, ordenadas por Error Relativo para facilitar la selección del modelo más eficiente.
+El notebook evalúa múltiples modelos de regresión para predecir matrículas estudiantiles a nivel provincial.  
+El modelo **XGBoost Regressor** mostró el mejor desempeño promedio y se utilizó para realizar predicciones futuras.  
+Los resultados permiten visualizar tendencias proyectadas que pueden ser útiles en planificación educativa nacional y regional.
 
 ---
 
-## 🔮 Predicciones Futuras
+## 📁 Estructura del Proyecto
 
-Los modelos entrenados, especialmente XGBoost, se utilizan para generar predicciones de matrícula estudiantil para cada provincia durante los años 2025–2028. Las salidas incluyen:
-
-- **Archivo CSV (`predicciones.csv`)** con los resultados por provincia y año.
-- **Widget interactivo** para consultar predicciones específicas.
-- **Gráficos históricos vs. predicción futura** para visualización comparativa.
-
+```
+.
+├── ProyectoCapstone.ipynb         # Notebook principal
+└── predicciones_xgboost_futuras.csv  # Archivo de salida con predicciones
+```
 ---
+
+## 👤 Autores
+
+José Cobeña y Kelly España
