@@ -7,7 +7,7 @@ Este proyecto implementa modelos de aprendizaje supervisado para predecir el nú
 
 ## 📘 Contenido del Notebook
 
-El archivo principal `nombre_del_notebook.ipynb` (reemplaza con el nombre real) sigue los siguientes pasos:
+El archivo principal `ProyectoCapstone.ipynb` sigue los siguientes pasos:
 
 1. **Importación de Librerías**  
    Carga de bibliotecas para manipulación de datos, visualización, análisis estadístico y modelado predictivo.
@@ -62,6 +62,7 @@ El archivo principal `nombre_del_notebook.ipynb` (reemplaza con el nombre real) 
 
 13. **Visualización de Resultados**  
     Gráficos comparativos entre datos históricos y predicciones futuras.
+    Además, se generó un heatmap para visualizar comparativamente el Error Relativo Promedio de cada modelo por provincia.
 
 ---
 
@@ -111,7 +112,8 @@ ipython==9.3.0
 ## 📈 Resultados y Conclusiones
 
 El notebook evalúa múltiples modelos de regresión para predecir matrículas estudiantiles a nivel provincial.  
-El modelo **XGBoost Regressor** mostró el mejor desempeño promedio y se utilizó para realizar predicciones futuras.  
+El notebook evalúa múltiples modelos de regresión para predecir matrículas estudiantiles a nivel provincial.  
+El modelo **XGBoost Regressor** mostró el mejor desempeño promedio, con el menor **Error Promedio Ponderado (EPP)**, y se utilizó para realizar predicciones futuras.  
 Los resultados permiten visualizar tendencias proyectadas que pueden ser útiles en planificación educativa nacional y regional.
 
 ---
