@@ -1,5 +1,5 @@
 
-# Modelos de Aprendizaje Supervisado para el Número de Matrículas Estudiantiles en Ecuador
+# Modelos de Aprendizaje Supervisado para Predecir Matrículas Estudiantiles en Ecuador
 
 Este proyecto implementa modelos de aprendizaje supervisado para predecir el número total de estudiantes matriculados en Ecuador a nivel provincial, utilizando datos históricos. El objetivo es identificar el modelo con el mejor rendimiento predictivo para apoyar la planificación educativa.
 
@@ -50,19 +50,19 @@ El archivo principal `ProyectoCapstone.ipynb` sigue los siguientes pasos:
       - Random Forest Regressor  
       - Decision Tree Regressor  
     - Métricas evaluadas:
-      - RMSE  
-      - Error Relativo Promedio  
+      - RMSE (Raíz del Error Cuadrático Medio) 
+      - Error Relativo Promedio  (ERP)
     - Comparación de desempeño por provincia
 
-11. **Predicción de Años Futuros (XGBoost)**  
-    Predicción de matrículas para años futuros usando el mejor modelo entrenado.
+11. **Predicción de Años Futuros**  
+    Proyección de matrículas estudiantiles para años futuros utilizando el modelo con mejor desempeño (XGBoost).
 
 12. **Interfaz Interactiva (ipywidgets)**  
     Widget para consultar predicciones por provincia y año.
 
 13. **Visualización de Resultados**  
     Gráficos comparativos entre datos históricos y predicciones futuras.
-    Además, se generó un heatmap para visualizar comparativamente el Error Relativo Promedio de cada modelo por provincia.
+    También se generó un mapa de calor para comparar el Error Relativo Promedio entre modelos por provincia.
 
 ---
 
@@ -111,10 +111,10 @@ ipython==9.3.0
 
 ## 📈 Resultados y Conclusiones
 
-El notebook evalúa múltiples modelos de regresión para predecir matrículas estudiantiles a nivel provincial.  
-El notebook evalúa múltiples modelos de regresión para predecir matrículas estudiantiles a nivel provincial.  
-El modelo **XGBoost Regressor** mostró el mejor desempeño promedio, con el menor **Error Promedio Ponderado (EPP)**, y se utilizó para realizar predicciones futuras.  
-Los resultados permiten visualizar tendencias proyectadas que pueden ser útiles en planificación educativa nacional y regional.
+Se evaluaron modelos supervisados usando validación rolling forecasting.
+XGBoost Regressor obtuvo el mejor rendimiento según el Error Promedio Ponderado (EPP), calculado ponderando el error relativo por provincia con su respectivo índice de ruralidad. Esto prioriza la precisión en zonas con mayor población rural.
+
+El modelo fue usado para proyectar matrículas futuras a nivel provincial. Las visualizaciones permiten identificar tendencias útiles para la planificación educativa.
 
 ---
 
